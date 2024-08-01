@@ -15,6 +15,7 @@ RSpec.describe "/customer/:id/portfolios", type: :request do
       expect(json).to eq({
         "contracts" => [
           {
+            "id" => portfolio.id,
             "label" => "Portefeuille d'actions",
             "type" => "CTO",
             "amount" => 0.0,

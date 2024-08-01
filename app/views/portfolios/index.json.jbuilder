@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 json.contracts @portfolios do |portfolio|
+  json.id portfolio.id
   json.label portfolio.label
   json.type portfolio.kind
   json.amount portfolio.total_amount.to_f
