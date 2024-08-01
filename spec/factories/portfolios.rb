@@ -2,7 +2,8 @@
 
 FactoryBot.define do
   factory :portfolio do
-    label { "MyString" }
-    type { "" }
+    label { "Portefeuille d'actions" }
+    kind { "CTO" }
+    association :customer
   end
 end
