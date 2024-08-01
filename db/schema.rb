@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_01_095729) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_01_100726) do
   create_table "investments", force: :cascade do |t|
     t.string "isin", null: false
     t.string "kind", null: false
@@ -21,6 +21,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_01_095729) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "portfolio_investments", force: :cascade do |t|
+    t.integer "portfolio_id", null: false
+    t.integer "investment_id", null: false
+    t.decimal "amount", default: "0.0", null: false
+    t.decimal "share", default: "0.0", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["investment_id"], name: "index_portfolio_investments_on_investment_id"
+    t.index ["portfolio_id", "investment_id"], name: "index_portfolio_investments_on_portfolio_id_and_investment_id", unique: true
+    t.index ["portfolio_id"], name: "index_portfolio_investments_on_portfolio_id"
+  end
+
   create_table "portfolios", force: :cascade do |t|
     t.string "label", null: false
     t.string "kind", null: false
@@ -29,4 +41,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_01_095729) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "portfolio_investments", "investments"
+  add_foreign_key "portfolio_investments", "portfolios"
 end
