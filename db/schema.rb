@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_01_090833) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_01_095729) do
+  create_table "investments", force: :cascade do |t|
+    t.string "isin", null: false
+    t.string "kind", null: false
+    t.string "label", null: false
+    t.decimal "price", default: "0.0", null: false
+    t.integer "sri", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "portfolios", force: :cascade do |t|
     t.string "label", null: false
     t.string "kind", null: false
