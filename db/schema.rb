@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_01_100726) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_01_110123) do
+  create_table "customers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "investments", force: :cascade do |t|
     t.string "isin", null: false
     t.string "kind", null: false
@@ -19,6 +24,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_01_100726) do
     t.integer "sri", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["isin"], name: "index_investments_on_isin", unique: true
   end
 
   create_table "portfolio_investments", force: :cascade do |t|
@@ -39,8 +45,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_01_100726) do
     t.decimal "total_amount", default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "customer_id", null: false
+    t.index ["customer_id"], name: "index_portfolios_on_customer_id"
   end
 
   add_foreign_key "portfolio_investments", "investments"
   add_foreign_key "portfolio_investments", "portfolios"
+  add_foreign_key "portfolios", "customers"
 end
